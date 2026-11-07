@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet - Sample call — launch checklist</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: #202124; color: #e8eaed; font-family: "Google Sans", "Segoe UI", sans-serif; }
+      body { min-height: 800px; }
+      .shell { display: grid; grid-template-rows: 56px 1fr 88px; height: 100vh; min-height: 800px; }
+      header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+      .title { font-size: 14px; }
+      .sample { font-size: 12px; color: #9aa0a6; }
+      .stage { display: grid; grid-template-columns: 1fr 360px; gap: 12px; padding: 0 12px 12px; min-height: 0; }
+      .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .tile { background: #3c4043; border-radius: 12px; display: flex; align-items: flex-end; padding: 12px; font-size: 13px; }
+      aside[data-askkeep-panel] {
+        background: #fff;
+        color: #202124;
+        border-radius: 16px;
+        padding: 168px 16px 16px;
+        overflow: auto;
+        box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      }
+      aside h2 { margin: 0 0 12px; font-size: 18px; }
+      .turn { margin: 0 0 10px; padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+      .turn.user { background: #f1f3f4; }
+      .turn.gemini { background: #f3e8ff; }
+      .turn.user::before, .turn.gemini::before {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        color: #5f6368;
+      }
+      .turn.user::before { content: "YOU"; }
+      .turn.gemini::before { content: "GEMINI"; }
+      section h3 { margin: 14px 0 6px; font-size: 13px; }
+      li { margin: 4px 0; font-size: 14px; }
+      footer { display: flex; align-items: center; justify-content: center; gap: 10px; }
+      button.control, [role="button"].control {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font: 600 14px/1 "Segoe UI", sans-serif;
+        color: #fff;
+        background: #3c4043;
+        cursor: pointer;
+      }
+      #leave-call { background: #ea4335; }
+      #end-call { background: #c5221f; }
+      #left-banner {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(32,33,36,.92);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <div class="title" data-askkeep-meeting-title="Sample call — launch checklist">Sample call — launch checklist</div>
+        <div class="sample">Mock Google Meet · sample data</div>
+      </header>
+      <div class="stage">
+        <div class="tiles" aria-hidden="true">
+          <div class="tile">Alex</div>
+          <div class="tile">Priya</div>
+        </div>
+        <aside data-askkeep-panel="ask-gemini" aria-label="Ask Gemini">
+          <h2>Ask Gemini</h2>
+          <div class="turn user" data-askkeep-turn="user">What did we decide about the launch?</div>
+          <div id="gemini-answer" class="turn gemini" data-askkeep-turn="gemini" hidden>Friday. Alex owns the checklist. Priya updates the Drive folder.</div>
+          <section id="action-items" aria-label="Action items" hidden>
+            <h3>Action items</h3>
+            <ul>
+              <li>Alex sends the checklist today</li>
+              <li>Priya shares the launch folder</li>
+            </ul>
+          </section>
+          <section id="talking-points" aria-label="Talking points" hidden>
+            <h3>Talking points</h3>
+            <ul>
+              <li>Launch date is Friday</li>
+              <li>Notes stay in Meet unless you copy them</li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+      <footer>
+        <button class="control" type="button" aria-label="Turn off microphone">Mic</button>
+        <button class="control" type="button" aria-label="Turn off camera">Camera</button>
+        <button id="leave-call" class="control" type="button" data-askkeep-action="leave" aria-label="Leave call">Leave</button>
+        <button id="end-call" class="control" type="button" data-askkeep-action="end" aria-label="End call">End call</button>
+      </footer>
+    </div>
+    <div id="left-banner">You left the sample call</div>
+    <script>
+      if (new URLSearchParams(location.search).get('full') === '1') {
+        document.querySelectorAll('#gemini-answer, #action-items, #talking-points').forEach(function (el) {
+          el.hidden = false;
+        });
+      }
+      function leftCall(event, message) {
+        if (event.defaultPrevented) return;
+        var banner = document.getElementById('left-banner');
+        banner.textContent = message;
+        banner.style.display = 'flex';
+      }
+      document.getElementById('leave-call').addEventListener('click', function (event) {
+        leftCall(event, 'You left the sample call');
+      });
+      document.getElementById('end-call').addEventListener('click', function (event) {
+        leftCall(event, 'You ended the sample call');
+      });
+    </script>
+  </body>
+</html>
