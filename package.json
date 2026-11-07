@@ -1,0 +1,42 @@
+{
+  "name": "askkeep",
+  "version": "1.0.0",
+  "description": "Free Chrome extension that keeps a local copy of the Ask Gemini side panel in Google Meet so you can copy or download it before you leave the call. By Drive I/O.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "tsc --noEmit && vite build && vite build --config vite.content.config.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit",
+    "icons": "node scripts/generate-icons.mjs",
+    "store-assets": "node scripts/generate-store-assets.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.258",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.49.0",
+    "postcss": "^8.4.32",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-static-copy": "^1.0.6",
+    "vitest": "^1.1.0"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true,
+    "sharp@0.33.5": true
+  }
+}

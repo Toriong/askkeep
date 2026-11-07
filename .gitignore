@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+*.log
+.env
+.env.*
+.vscode
+.idea
+*.swp
+*.swo
+*~
+test-results
+playwright-report
+blob-report
+.playwright
+tmp

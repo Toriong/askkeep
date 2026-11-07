@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "AskKeep",
+  "version": "1.0.0",
+  "description": "Keep a local copy of the Ask Gemini side panel in Google Meet so you can copy or download it before you leave.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://meet.google.com/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AskKeep",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["content-meet.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
